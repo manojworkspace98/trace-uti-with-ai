@@ -22,7 +22,7 @@ function LinkedInIcon({ className = "" }: { className?: string }) {
 function Avatar({ member, size = 64 }: { member: Member; size?: number }) {
   const [failed, setFailed] = useState(false);
   const [g1, g2] = avatarGradient(member.name);
-  if (failed || !member.photo) {
+  if (failed || !member.hasPhoto) {
     return (
       <div
         className="grid shrink-0 place-items-center rounded-2xl font-bold text-white shadow-sm ring-2 ring-white/60"

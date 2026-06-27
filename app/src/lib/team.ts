@@ -6,7 +6,8 @@ export interface Member {
   name: string;
   role: string;
   blurb?: string;
-  photo: string; // filename in public/team/, optional to actually exist
+  photo: string; // filename in public/team/<photo>.jpg
+  hasPhoto?: boolean; // true once a real photo file exists (avoids 404 fetches)
   lead?: boolean;
   alumni?: boolean; // former member who has since left the team
   linkedin?: string;
@@ -18,6 +19,7 @@ export const TEAM: Member[] = [
     role: "Co-founder · CEO",
     blurb: "Wet-lab scientist leading the team as CEO.",
     photo: "liyana",
+    hasPhoto: true,
     lead: true,
     linkedin: "https://www.linkedin.com/in/liyanaaoy/",
   },
@@ -26,6 +28,7 @@ export const TEAM: Member[] = [
     role: "Co-founder · COO",
     blurb: "Leads operations and legal/regulatory strategy.",
     photo: "kimberly",
+    hasPhoto: true,
     lead: true,
     linkedin: "https://www.linkedin.com/in/kimberlysuyy/",
   },
@@ -34,6 +37,7 @@ export const TEAM: Member[] = [
     role: "Co-founder · CTO · AI Scientist",
     blurb: "Builds the machine-learning pipeline behind Trace.",
     photo: "manoj",
+    hasPhoto: true,
     lead: true,
     linkedin: "https://www.linkedin.com/in/manoj-itharajula/",
   },
