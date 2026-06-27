@@ -10,13 +10,13 @@ import {
   type HistoryItem,
 } from "../lib/formState";
 import { predict } from "../lib/inference";
-import { Card, Chip, HelpTooltip, Reveal, Select, SectionTitle } from "./ui";
+import { Card, Chip, Reveal, Select, SectionTitle } from "./ui";
 import { CountUp } from "./CountUp";
 import { Results } from "./Results";
 
 const winLabel = (w: number) => `within ~${w} days`;
 
-/** Adds (code, window) history items with valid-combo constraints. */
+/** Add one-or-more (code, window) history items, with valid-combo constraints. */
 function HistoryAdder({
   options,
   combos,
@@ -24,6 +24,7 @@ function HistoryAdder({
   onAdd,
   onRemove,
   codeLabel,
+  itemNoun,
   tone = "brand",
 }: {
   options: { code: string; label: string }[];
@@ -32,6 +33,7 @@ function HistoryAdder({
   onAdd: (it: HistoryItem) => void;
   onRemove: (idx: number) => void;
   codeLabel: string;
+  itemNoun: string; // e.g. "resistance result"
   tone?: "brand" | "amber" | "rose" | "slate";
 }) {
   const [code, setCode] = useState("");
@@ -51,13 +53,14 @@ function HistoryAdder({
   const add = () => {
     const w = Number(win);
     if (code && w && !exists(code, w)) onAdd({ code, window: w });
+    setCode("");
     setWin("");
   };
 
   return (
     <div>
-      <div className="flex flex-wrap items-end gap-2">
-        <div className="min-w-[180px] flex-1">
+      <div className="flex flex-wrap items-end gap-2 rounded-2xl bg-slate-50/70 p-3">
+        <div className="min-w-[170px] flex-1">
           <Select
             label={codeLabel}
             value={code}
@@ -70,11 +73,11 @@ function HistoryAdder({
         </div>
         <div className="min-w-[150px] flex-1">
           <Select
-            label="Time window"
+            label="When? (most recent)"
             value={win}
             onChange={setWin}
             disabled={!code}
-            placeholder={code ? "When?" : "Pick first"}
+            placeholder={code ? "Choose…" : "Pick one first"}
             options={validWindows.map((w) => ({ value: String(w), label: winLabel(w) }))}
           />
         </div>
@@ -82,22 +85,116 @@ function HistoryAdder({
           type="button"
           onClick={add}
           disabled={!code || !win}
-          className="rounded-xl bg-brand-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-brand-700 disabled:opacity-40"
+          className="rounded-xl bg-brand-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-40"
         >
-          Add
+          + Add
         </button>
       </div>
-      {items.length > 0 && (
-        <div className="mt-3 flex flex-wrap gap-2">
-          <AnimatePresence>
-            {items.map((it, i) => (
-              <Chip key={`${it.code}-${it.window}`} tone={tone} onRemove={() => onRemove(i)}>
-                {labelFor(it.code)} · {winLabel(it.window)}
-              </Chip>
-            ))}
-          </AnimatePresence>
+
+      {items.length > 0 ? (
+        <div className="mt-2.5">
+          <p className="mb-1.5 text-[11px] font-medium text-ink-500">
+            {items.length} added — tap × to remove:
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <AnimatePresence>
+              {items.map((it, i) => (
+                <Chip
+                  key={`${it.code}-${it.window}`}
+                  tone={tone}
+                  onRemove={() => onRemove(i)}
+                >
+                  {labelFor(it.code)} · {winLabel(it.window)}
+                </Chip>
+              ))}
+            </AnimatePresence>
+          </div>
         </div>
+      ) : (
+        <p className="mt-2 text-[11px] text-ink-400">
+          None added yet — optional. You can add more than one {itemNoun}.
+        </p>
       )}
+    </div>
+  );
+}
+
+/** Multi-select comorbidity picker — tap any that apply; each reveals a "when". */
+function ComorbiditySelector({
+  schema,
+  items,
+  onChange,
+}: {
+  schema: Schema;
+  items: HistoryItem[];
+  onChange: (items: HistoryItem[]) => void;
+}) {
+  const conds = schema.groups.comorbidity.conditions;
+  const combos = schema.groups.comorbidity.combos;
+  const windowsFor = (code: string) =>
+    combos
+      .filter(([c]) => c === code)
+      .map(([, w]) => w)
+      .sort((a, b) => a - b);
+  const active = (code: string) => items.find((it) => it.code === code);
+
+  const toggle = (code: string) => {
+    if (active(code)) {
+      onChange(items.filter((it) => it.code !== code));
+    } else {
+      const ws = windowsFor(code);
+      const w = ws.includes(180) ? 180 : ws[ws.length - 1];
+      onChange([...items, { code, window: w }]);
+    }
+  };
+  const setWindow = (code: string, w: number) =>
+    onChange(items.map((it) => (it.code === code ? { ...it, window: w } : it)));
+
+  return (
+    <div className="space-y-2">
+      {conds.map((c) => {
+        const a = active(c.code);
+        return (
+          <div
+            key={c.code}
+            className={`flex flex-wrap items-center gap-3 rounded-xl border p-2.5 transition ${
+              a ? "border-brand-300 bg-brand-50/60" : "border-slate-200 bg-white/60"
+            }`}
+          >
+            <button
+              type="button"
+              onClick={() => toggle(c.code)}
+              aria-pressed={!!a}
+              className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+                a
+                  ? "bg-brand-600 text-white"
+                  : "bg-white text-ink-700 ring-1 ring-slate-200 hover:ring-brand-300"
+              }`}
+            >
+              <span className="grid h-4 w-4 place-items-center rounded border border-current text-[10px]">
+                {a ? "✓" : ""}
+              </span>
+              {c.label}
+            </button>
+            {a && (
+              <div className="min-w-[150px] flex-1">
+                <Select
+                  label="Recorded when?"
+                  value={String(a.window)}
+                  onChange={(v) => setWindow(c.code, Number(v))}
+                  options={windowsFor(c.code).map((w) => ({
+                    value: String(w),
+                    label: winLabel(w),
+                  }))}
+                />
+              </div>
+            )}
+          </div>
+        );
+      })}
+      <p className="text-[11px] text-ink-400">
+        Tap any that apply — you can select more than one. All optional.
+      </p>
     </div>
   );
 }
@@ -122,7 +219,6 @@ export function Predict({ schema, model }: { schema: Schema; model: Model }) {
 
   const run = () => {
     setRunning(true);
-    // brief async so the spinner paints; compute is instant
     setTimeout(() => {
       const x = buildFeatureVector(schema, form);
       setResult(predict(model, x));
@@ -152,14 +248,31 @@ export function Predict({ schema, model }: { schema: Schema; model: Model }) {
     <div className="space-y-6">
       {/* Hero */}
       <Reveal immediate>
-        <div className="pb-2 text-center">
-          <h1 className="bg-gradient-to-r from-brand-700 to-teal-600 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
+        <div className="pb-1 text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-brand-800 sm:text-4xl">
             Personalised UTI antibiotic guidance
           </h1>
           <p className="mx-auto mt-2 max-w-2xl text-sm text-ink-600 sm:text-base">
-            Enter a patient’s prior infection history. The model estimates resistance to
-            each first-line antibiotic and suggests the narrowest effective option — to
-            support antimicrobial stewardship.
+            Tell us what’s known about the patient’s past UTIs. The model estimates the
+            chance of resistance to each first-line antibiotic and suggests the narrowest
+            effective option — to support antimicrobial stewardship.
+          </p>
+        </div>
+      </Reveal>
+
+      {/* How-to tip */}
+      <Reveal immediate>
+        <div className="flex items-start gap-3 rounded-2xl border border-brand-100 bg-brand-50/70 p-4 text-sm text-ink-700">
+          <span className="text-lg leading-none">💡</span>
+          <p>
+            <strong className="font-semibold text-brand-800">How to use:</strong> fill in
+            what you know below — <strong>every field is optional</strong> and you can add{" "}
+            <strong>several entries</strong> in each section. First infection or no records?
+            You’ll still get a baseline estimate. New here? Tap{" "}
+            <span className="rounded bg-white px-1.5 py-0.5 text-xs font-medium text-brand-700 ring-1 ring-brand-200">
+              Load example case
+            </span>{" "}
+            to see it in action.
           </p>
         </div>
       </Reveal>
@@ -169,7 +282,11 @@ export function Predict({ schema, model }: { schema: Schema; model: Model }) {
         <div className="space-y-6 lg:col-span-3">
           <Reveal>
             <Card className="p-6">
-              <SectionTitle step={1} title="Patient" />
+              <SectionTitle
+                step={1}
+                title="Patient"
+                subtitle="A couple of basics — both optional."
+              />
               <div className="grid gap-4 sm:grid-cols-2">
                 <Select
                   label="Age group"
@@ -178,12 +295,14 @@ export function Predict({ schema, model }: { schema: Schema; model: Model }) {
                   options={g.age_groups.map((a) => ({ value: a.key, label: a.label }))}
                 />
                 <div>
-                  <span className="mb-1 block text-xs font-medium text-ink-700">Race</span>
+                  <span className="mb-1 block text-xs font-medium text-ink-700">
+                    Race <span className="text-ink-400">(from the source dataset)</span>
+                  </span>
                   <div className="flex gap-2">
                     {[
                       { v: "white", label: "White" },
                       { v: "nonwhite", label: "Non-white" },
-                      { v: "unknown", label: "Unspecified" },
+                      { v: "unknown", label: "Skip" },
                     ].map((o) => {
                       const active =
                         (o.v === "white" && form.isWhite === true) ||
@@ -219,15 +338,14 @@ export function Predict({ schema, model }: { schema: Schema; model: Model }) {
             <Card className="p-6">
               <SectionTitle
                 step={2}
-                title="Prior infection history"
-                subtitle="Add any past resistance results, infecting organisms and antibiotics taken. Everything is optional."
+                title="Past UTI history"
+                subtitle="Add the patient’s previous results and antibiotic use — add as many as you like, or skip if this is their first infection."
               />
-              <div className="space-y-5">
-                <div>
-                  <div className="mb-2 flex items-center text-sm font-semibold text-ink-800">
-                    Prior antibiotic resistance
-                    <HelpTooltip text="Antibiotics a previous culture showed the patient's bacteria resisted, and roughly how recently." />
-                  </div>
+              <div className="space-y-6">
+                <FieldGroup
+                  title="Antibiotics they were resistant to"
+                  help="Antibiotics a previous urine culture showed the patient’s bacteria could resist. Add each one and roughly how recently it was found."
+                >
                   <HistoryAdder
                     options={g.resistance.antibiotics}
                     combos={g.resistance.combos}
@@ -235,15 +353,15 @@ export function Predict({ schema, model }: { schema: Schema; model: Model }) {
                     onAdd={addTo("resistances")}
                     onRemove={removeFrom("resistances")}
                     codeLabel="Resistant to"
+                    itemNoun="resistance result"
                     tone="rose"
                   />
-                </div>
-                <div className="h-px bg-slate-100" />
-                <div>
-                  <div className="mb-2 flex items-center text-sm font-semibold text-ink-800">
-                    Prior infecting organisms
-                    <HelpTooltip text="Bacteria identified in previous urine cultures (E. coli causes most UTIs)." />
-                  </div>
+                </FieldGroup>
+
+                <FieldGroup
+                  title="Bacteria found in past infections"
+                  help="Organisms identified in previous urine cultures. E. coli causes most UTIs."
+                >
                   <HistoryAdder
                     options={g.organism.organisms}
                     combos={g.organism.combos}
@@ -251,15 +369,15 @@ export function Predict({ schema, model }: { schema: Schema; model: Model }) {
                     onAdd={addTo("organisms")}
                     onRemove={removeFrom("organisms")}
                     codeLabel="Organism"
+                    itemNoun="organism"
                     tone="slate"
                   />
-                </div>
-                <div className="h-px bg-slate-100" />
-                <div>
-                  <div className="mb-2 flex items-center text-sm font-semibold text-ink-800">
-                    Antibiotics previously taken
-                    <HelpTooltip text="Classes of antibiotics the patient was prescribed recently — recent exposure can select for resistance." />
-                  </div>
+                </FieldGroup>
+
+                <FieldGroup
+                  title="Antibiotics they’ve recently taken"
+                  help="Classes of antibiotics prescribed recently — recent exposure can select for resistance."
+                >
                   <HistoryAdder
                     options={g.prescription.classes}
                     combos={g.prescription.combos}
@@ -267,24 +385,25 @@ export function Predict({ schema, model }: { schema: Schema; model: Model }) {
                     onAdd={addTo("prescriptions")}
                     onRemove={removeFrom("prescriptions")}
                     codeLabel="Antibiotic class"
+                    itemNoun="antibiotic"
                     tone="amber"
                   />
-                </div>
+                </FieldGroup>
               </div>
             </Card>
           </Reveal>
 
           <Reveal delay={0.1}>
             <Card className="p-6">
-              <SectionTitle step={3} title="Comorbidities" subtitle="Optional." />
-              <HistoryAdder
-                options={g.comorbidity.conditions}
-                combos={g.comorbidity.combos}
+              <SectionTitle
+                step={3}
+                title="Ongoing conditions"
+                subtitle="Does the patient have any of these? Select all that apply."
+              />
+              <ComorbiditySelector
+                schema={schema}
                 items={form.comorbidities}
-                onAdd={addTo("comorbidities")}
-                onRemove={removeFrom("comorbidities")}
-                codeLabel="Condition"
-                tone="slate"
+                onChange={(items) => update({ comorbidities: items })}
               />
             </Card>
           </Reveal>
@@ -301,7 +420,7 @@ export function Predict({ schema, model }: { schema: Schema; model: Model }) {
                   disabled={running}
                   className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-brand-600 to-teal-600 px-5 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand-600/25 transition hover:brightness-105 active:scale-[0.99] disabled:opacity-60"
                 >
-                  {running ? "Analysing…" : "Get recommendation"}
+                  {running ? "Analysing…" : "Get recommendation →"}
                 </button>
                 <div className="mt-3 flex gap-2">
                   <button
@@ -321,8 +440,8 @@ export function Predict({ schema, model }: { schema: Schema; model: Model }) {
                   </button>
                 </div>
                 <p className="mt-4 text-[11px] leading-relaxed text-ink-500">
-                  Empty or sparse input still returns a prediction, shown with lower
-                  confidence. This tool informs — it does not replace — culture &amp;
+                  Even an empty or sparse form returns a prediction (shown with lower
+                  confidence). This tool informs — it does not replace — culture &amp;
                   sensitivity testing.
                 </p>
               </Card>
@@ -348,6 +467,24 @@ export function Predict({ schema, model }: { schema: Schema; model: Model }) {
   );
 }
 
+function FieldGroup({
+  title,
+  help,
+  children,
+}: {
+  title: string;
+  help: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <div className="mb-1 text-sm font-semibold text-ink-800">{title}</div>
+      <p className="mb-2 text-xs text-ink-500">{help}</p>
+      {children}
+    </div>
+  );
+}
+
 function CompletenessMeter({ value, items }: { value: number; items: number }) {
   const pct = Math.round(value * 100);
   return (
@@ -367,8 +504,7 @@ function CompletenessMeter({ value, items }: { value: number; items: number }) {
         />
       </div>
       <p className="mt-1.5 text-[11px] text-ink-500">
-        {items} history item{items === 1 ? "" : "s"} entered — more detail sharpens the
-        estimate.
+        {items} item{items === 1 ? "" : "s"} entered — more detail sharpens the estimate.
       </p>
     </div>
   );
