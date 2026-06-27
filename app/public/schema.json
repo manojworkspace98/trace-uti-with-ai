@@ -1,0 +1,817 @@
+{
+  "version": "1.0.0",
+  "feature_names": [
+    "demographics - is_white",
+    "micro - prev resistance AMP 30",
+    "micro - prev resistance CFZ 30",
+    "micro - prev resistance NIT 30",
+    "micro - prev resistance TET 30",
+    "micro - prev resistance SXT 30",
+    "micro - prev resistance AMP 90",
+    "micro - prev resistance CIP 90",
+    "micro - prev resistance SXT 90",
+    "micro - prev resistance TET 90",
+    "micro - prev resistance CFZ 90",
+    "micro - prev resistance LVX 90",
+    "micro - prev resistance NIT 90",
+    "micro - prev resistance OXA 90",
+    "micro - prev resistance PEN 90",
+    "micro - prev resistance ERY 90",
+    "micro - prev resistance LVX 180",
+    "micro - prev resistance AMP 180",
+    "micro - prev resistance CFZ 180",
+    "micro - prev resistance CIP 180",
+    "micro - prev resistance PIP 180",
+    "micro - prev resistance TOB 180",
+    "micro - prev resistance ERY 180",
+    "micro - prev resistance OXA 180",
+    "micro - prev resistance PEN 180",
+    "micro - prev resistance QUD 180",
+    "micro - prev resistance TET 180",
+    "micro - prev resistance AMC 180",
+    "micro - prev resistance CRO 180",
+    "micro - prev resistance NIT 180",
+    "micro - prev resistance SXT 180",
+    "ab class 7 - fluoroquinolone",
+    "ab class 7 - macrolide_lincosamide",
+    "ab class 7 - folate_inhibitor",
+    "ab class 7 - beta_lactam",
+    "ab class 7 - antifungal",
+    "ab class 14 - fluoroquinolone",
+    "ab class 14 - nitrofuran",
+    "ab class 14 - nitroimidazole",
+    "ab class 14 - macrolide_lincosamide",
+    "ab class 14 - folate_inhibitor",
+    "ab class 14 - beta_lactam",
+    "ab class 14 - antifungal",
+    "ab class 30 - macrolide_lincosamide",
+    "ab class 30 - tetracycline",
+    "ab class 30 - fluoroquinolone",
+    "ab class 30 - nitrofuran",
+    "ab class 30 - nitroimidazole",
+    "ab class 30 - beta_lactam",
+    "ab class 30 - folate_inhibitor",
+    "ab class 30 - antifungal",
+    "ab class 90 - macrolide_lincosamide",
+    "ab class 90 - fluoroquinolone",
+    "ab class 90 - tetracycline",
+    "ab class 90 - nitrofuran",
+    "ab class 90 - beta_lactam",
+    "ab class 90 - nitroimidazole",
+    "ab class 90 - folate_inhibitor",
+    "ab class 90 - antifungal",
+    "ab class 180 - folate_inhibitor",
+    "ab class 180 - macrolide_lincosamide",
+    "ab class 180 - fluoroquinolone",
+    "ab class 180 - tetracycline",
+    "ab class 180 - nitrofuran",
+    "ab class 180 - beta_lactam",
+    "ab class 180 - antifungal",
+    "ab class 180 - nitroimidazole",
+    "micro - prev organism Escherichia 30",
+    "micro - prev organism Klebsiella 90",
+    "micro - prev organism Escherichia 90",
+    "micro - prev organism Proteus 90",
+    "micro - prev organism Escherichia 180",
+    "micro - prev organism Staphylococcus 180",
+    "micro - prev organism Enterococcus 180",
+    "micro - prev organism Staph_coag_neg 180",
+    "micro - prev organism Klebsiella 180",
+    "micro - prev organism Proteus 180",
+    "comorbidity 7 - HTN",
+    "comorbidity 7 - DM",
+    "comorbidity 7 - Depression",
+    "comorbidity 14 - HTN",
+    "comorbidity 14 - DM",
+    "comorbidity 14 - Depression",
+    "comorbidity 30 - HTN",
+    "comorbidity 30 - DM",
+    "comorbidity 30 - Depression",
+    "comorbidity 90 - HTN",
+    "comorbidity 90 - DM",
+    "comorbidity 90 - Depression",
+    "comorbidity 180 - Depression",
+    "comorbidity 180 - DM",
+    "Age_Infant (0-1)",
+    "Age_Toddler(2-3)",
+    "Age_Kid(4-12)",
+    "Age_Teen(13-19)",
+    "Age_Adult(20-49)",
+    "Age_Old(50-79)",
+    "Age_SuperOld(80-110)"
+  ],
+  "feature_index": {
+    "demographics - is_white": 0,
+    "micro - prev resistance AMP 30": 1,
+    "micro - prev resistance CFZ 30": 2,
+    "micro - prev resistance NIT 30": 3,
+    "micro - prev resistance TET 30": 4,
+    "micro - prev resistance SXT 30": 5,
+    "micro - prev resistance AMP 90": 6,
+    "micro - prev resistance CIP 90": 7,
+    "micro - prev resistance SXT 90": 8,
+    "micro - prev resistance TET 90": 9,
+    "micro - prev resistance CFZ 90": 10,
+    "micro - prev resistance LVX 90": 11,
+    "micro - prev resistance NIT 90": 12,
+    "micro - prev resistance OXA 90": 13,
+    "micro - prev resistance PEN 90": 14,
+    "micro - prev resistance ERY 90": 15,
+    "micro - prev resistance LVX 180": 16,
+    "micro - prev resistance AMP 180": 17,
+    "micro - prev resistance CFZ 180": 18,
+    "micro - prev resistance CIP 180": 19,
+    "micro - prev resistance PIP 180": 20,
+    "micro - prev resistance TOB 180": 21,
+    "micro - prev resistance ERY 180": 22,
+    "micro - prev resistance OXA 180": 23,
+    "micro - prev resistance PEN 180": 24,
+    "micro - prev resistance QUD 180": 25,
+    "micro - prev resistance TET 180": 26,
+    "micro - prev resistance AMC 180": 27,
+    "micro - prev resistance CRO 180": 28,
+    "micro - prev resistance NIT 180": 29,
+    "micro - prev resistance SXT 180": 30,
+    "ab class 7 - fluoroquinolone": 31,
+    "ab class 7 - macrolide_lincosamide": 32,
+    "ab class 7 - folate_inhibitor": 33,
+    "ab class 7 - beta_lactam": 34,
+    "ab class 7 - antifungal": 35,
+    "ab class 14 - fluoroquinolone": 36,
+    "ab class 14 - nitrofuran": 37,
+    "ab class 14 - nitroimidazole": 38,
+    "ab class 14 - macrolide_lincosamide": 39,
+    "ab class 14 - folate_inhibitor": 40,
+    "ab class 14 - beta_lactam": 41,
+    "ab class 14 - antifungal": 42,
+    "ab class 30 - macrolide_lincosamide": 43,
+    "ab class 30 - tetracycline": 44,
+    "ab class 30 - fluoroquinolone": 45,
+    "ab class 30 - nitrofuran": 46,
+    "ab class 30 - nitroimidazole": 47,
+    "ab class 30 - beta_lactam": 48,
+    "ab class 30 - folate_inhibitor": 49,
+    "ab class 30 - antifungal": 50,
+    "ab class 90 - macrolide_lincosamide": 51,
+    "ab class 90 - fluoroquinolone": 52,
+    "ab class 90 - tetracycline": 53,
+    "ab class 90 - nitrofuran": 54,
+    "ab class 90 - beta_lactam": 55,
+    "ab class 90 - nitroimidazole": 56,
+    "ab class 90 - folate_inhibitor": 57,
+    "ab class 90 - antifungal": 58,
+    "ab class 180 - folate_inhibitor": 59,
+    "ab class 180 - macrolide_lincosamide": 60,
+    "ab class 180 - fluoroquinolone": 61,
+    "ab class 180 - tetracycline": 62,
+    "ab class 180 - nitrofuran": 63,
+    "ab class 180 - beta_lactam": 64,
+    "ab class 180 - antifungal": 65,
+    "ab class 180 - nitroimidazole": 66,
+    "micro - prev organism Escherichia 30": 67,
+    "micro - prev organism Klebsiella 90": 68,
+    "micro - prev organism Escherichia 90": 69,
+    "micro - prev organism Proteus 90": 70,
+    "micro - prev organism Escherichia 180": 71,
+    "micro - prev organism Staphylococcus 180": 72,
+    "micro - prev organism Enterococcus 180": 73,
+    "micro - prev organism Staph_coag_neg 180": 74,
+    "micro - prev organism Klebsiella 180": 75,
+    "micro - prev organism Proteus 180": 76,
+    "comorbidity 7 - HTN": 77,
+    "comorbidity 7 - DM": 78,
+    "comorbidity 7 - Depression": 79,
+    "comorbidity 14 - HTN": 80,
+    "comorbidity 14 - DM": 81,
+    "comorbidity 14 - Depression": 82,
+    "comorbidity 30 - HTN": 83,
+    "comorbidity 30 - DM": 84,
+    "comorbidity 30 - Depression": 85,
+    "comorbidity 90 - HTN": 86,
+    "comorbidity 90 - DM": 87,
+    "comorbidity 90 - Depression": 88,
+    "comorbidity 180 - Depression": 89,
+    "comorbidity 180 - DM": 90,
+    "Age_Infant (0-1)": 91,
+    "Age_Toddler(2-3)": 92,
+    "Age_Kid(4-12)": 93,
+    "Age_Teen(13-19)": 94,
+    "Age_Adult(20-49)": 95,
+    "Age_Old(50-79)": 96,
+    "Age_SuperOld(80-110)": 97
+  },
+  "n_features": 98,
+  "drugs": [
+    "NIT",
+    "SXT",
+    "CIP",
+    "LVX"
+  ],
+  "drug_info": {
+    "NIT": {
+      "name": "Nitrofurantoin",
+      "klass": "Nitrofuran",
+      "line": "First-line",
+      "plain": "First-line oral agent for uncomplicated cystitis."
+    },
+    "SXT": {
+      "name": "Trimethoprim-sulfamethoxazole",
+      "klass": "Folate inhibitor",
+      "line": "First-line",
+      "plain": "First-line where local resistance is low."
+    },
+    "CIP": {
+      "name": "Ciprofloxacin",
+      "klass": "Fluoroquinolone",
+      "line": "Reserve",
+      "plain": "Broad-spectrum; reserve to limit resistance."
+    },
+    "LVX": {
+      "name": "Levofloxacin",
+      "klass": "Fluoroquinolone",
+      "line": "Reserve",
+      "plain": "Broad-spectrum fluoroquinolone; reserve agent."
+    }
+  },
+  "label_map": {
+    "0": "Nitrofurantoin",
+    "1": "Trimethoprim-Sulfamethoxazole",
+    "2": "Fluoroquinolone (CIP/LVX)"
+  },
+  "window_note": "Time windows count days before the current visit (e.g. 90 = within the prior ~90 days).",
+  "groups": {
+    "demographics": {
+      "has_is_white": true
+    },
+    "age_groups": [
+      {
+        "key": "Age_Infant (0-1)",
+        "label": "Infant (0\u20131)"
+      },
+      {
+        "key": "Age_Toddler(2-3)",
+        "label": "Toddler (2\u20133)"
+      },
+      {
+        "key": "Age_Kid(4-12)",
+        "label": "Child (4\u201312)"
+      },
+      {
+        "key": "Age_Teen(13-19)",
+        "label": "Teen (13\u201319)"
+      },
+      {
+        "key": "Age_Adult(20-49)",
+        "label": "Adult (20\u201349)"
+      },
+      {
+        "key": "Age_Old(50-79)",
+        "label": "Older adult (50\u201379)"
+      },
+      {
+        "key": "Age_SuperOld(80-110)",
+        "label": "Elderly (80+)"
+      }
+    ],
+    "resistance": {
+      "name_prefix": "micro - prev resistance",
+      "antibiotics": [
+        {
+          "code": "AMC",
+          "label": "Amoxicillin-clavulanate"
+        },
+        {
+          "code": "AMP",
+          "label": "Ampicillin"
+        },
+        {
+          "code": "CFZ",
+          "label": "Cefazolin"
+        },
+        {
+          "code": "CIP",
+          "label": "Ciprofloxacin"
+        },
+        {
+          "code": "CRO",
+          "label": "Ceftriaxone"
+        },
+        {
+          "code": "ERY",
+          "label": "Erythromycin"
+        },
+        {
+          "code": "LVX",
+          "label": "Levofloxacin"
+        },
+        {
+          "code": "NIT",
+          "label": "Nitrofurantoin"
+        },
+        {
+          "code": "OXA",
+          "label": "Oxacillin"
+        },
+        {
+          "code": "PEN",
+          "label": "Penicillin"
+        },
+        {
+          "code": "PIP",
+          "label": "Piperacillin"
+        },
+        {
+          "code": "QUD",
+          "label": "Quinupristin-dalfopristin"
+        },
+        {
+          "code": "SXT",
+          "label": "TMP-SMX"
+        },
+        {
+          "code": "TET",
+          "label": "Tetracycline"
+        },
+        {
+          "code": "TOB",
+          "label": "Tobramycin"
+        }
+      ],
+      "windows": [
+        30,
+        90,
+        180
+      ],
+      "combos": [
+        [
+          "AMC",
+          180
+        ],
+        [
+          "AMP",
+          30
+        ],
+        [
+          "AMP",
+          90
+        ],
+        [
+          "AMP",
+          180
+        ],
+        [
+          "CFZ",
+          30
+        ],
+        [
+          "CFZ",
+          90
+        ],
+        [
+          "CFZ",
+          180
+        ],
+        [
+          "CIP",
+          90
+        ],
+        [
+          "CIP",
+          180
+        ],
+        [
+          "CRO",
+          180
+        ],
+        [
+          "ERY",
+          90
+        ],
+        [
+          "ERY",
+          180
+        ],
+        [
+          "LVX",
+          90
+        ],
+        [
+          "LVX",
+          180
+        ],
+        [
+          "NIT",
+          30
+        ],
+        [
+          "NIT",
+          90
+        ],
+        [
+          "NIT",
+          180
+        ],
+        [
+          "OXA",
+          90
+        ],
+        [
+          "OXA",
+          180
+        ],
+        [
+          "PEN",
+          90
+        ],
+        [
+          "PEN",
+          180
+        ],
+        [
+          "PIP",
+          180
+        ],
+        [
+          "QUD",
+          180
+        ],
+        [
+          "SXT",
+          30
+        ],
+        [
+          "SXT",
+          90
+        ],
+        [
+          "SXT",
+          180
+        ],
+        [
+          "TET",
+          30
+        ],
+        [
+          "TET",
+          90
+        ],
+        [
+          "TET",
+          180
+        ],
+        [
+          "TOB",
+          180
+        ]
+      ]
+    },
+    "organism": {
+      "name_prefix": "micro - prev organism",
+      "organisms": [
+        {
+          "code": "Enterococcus",
+          "label": "Enterococcus"
+        },
+        {
+          "code": "Escherichia",
+          "label": "E. coli"
+        },
+        {
+          "code": "Klebsiella",
+          "label": "Klebsiella"
+        },
+        {
+          "code": "Proteus",
+          "label": "Proteus"
+        },
+        {
+          "code": "Staph_coag_neg",
+          "label": "Coagulase-negative staph"
+        },
+        {
+          "code": "Staphylococcus",
+          "label": "Staphylococcus"
+        }
+      ],
+      "windows": [
+        30,
+        90,
+        180
+      ],
+      "combos": [
+        [
+          "Enterococcus",
+          180
+        ],
+        [
+          "Escherichia",
+          30
+        ],
+        [
+          "Escherichia",
+          90
+        ],
+        [
+          "Escherichia",
+          180
+        ],
+        [
+          "Klebsiella",
+          90
+        ],
+        [
+          "Klebsiella",
+          180
+        ],
+        [
+          "Proteus",
+          90
+        ],
+        [
+          "Proteus",
+          180
+        ],
+        [
+          "Staph_coag_neg",
+          180
+        ],
+        [
+          "Staphylococcus",
+          180
+        ]
+      ]
+    },
+    "prescription": {
+      "name_template": "ab class {window} - {code}",
+      "classes": [
+        {
+          "code": "antifungal",
+          "label": "Antifungal"
+        },
+        {
+          "code": "beta_lactam",
+          "label": "Beta-lactam"
+        },
+        {
+          "code": "fluoroquinolone",
+          "label": "Fluoroquinolone"
+        },
+        {
+          "code": "folate_inhibitor",
+          "label": "Folate inhibitor (e.g. TMP-SMX)"
+        },
+        {
+          "code": "macrolide_lincosamide",
+          "label": "Macrolide / lincosamide"
+        },
+        {
+          "code": "nitrofuran",
+          "label": "Nitrofuran (e.g. nitrofurantoin)"
+        },
+        {
+          "code": "nitroimidazole",
+          "label": "Nitroimidazole"
+        },
+        {
+          "code": "tetracycline",
+          "label": "Tetracycline"
+        }
+      ],
+      "windows": [
+        7,
+        14,
+        30,
+        90,
+        180
+      ],
+      "combos": [
+        [
+          "antifungal",
+          7
+        ],
+        [
+          "antifungal",
+          14
+        ],
+        [
+          "antifungal",
+          30
+        ],
+        [
+          "antifungal",
+          90
+        ],
+        [
+          "antifungal",
+          180
+        ],
+        [
+          "beta_lactam",
+          7
+        ],
+        [
+          "beta_lactam",
+          14
+        ],
+        [
+          "beta_lactam",
+          30
+        ],
+        [
+          "beta_lactam",
+          90
+        ],
+        [
+          "beta_lactam",
+          180
+        ],
+        [
+          "fluoroquinolone",
+          7
+        ],
+        [
+          "fluoroquinolone",
+          14
+        ],
+        [
+          "fluoroquinolone",
+          30
+        ],
+        [
+          "fluoroquinolone",
+          90
+        ],
+        [
+          "fluoroquinolone",
+          180
+        ],
+        [
+          "folate_inhibitor",
+          7
+        ],
+        [
+          "folate_inhibitor",
+          14
+        ],
+        [
+          "folate_inhibitor",
+          30
+        ],
+        [
+          "folate_inhibitor",
+          90
+        ],
+        [
+          "folate_inhibitor",
+          180
+        ],
+        [
+          "macrolide_lincosamide",
+          7
+        ],
+        [
+          "macrolide_lincosamide",
+          14
+        ],
+        [
+          "macrolide_lincosamide",
+          30
+        ],
+        [
+          "macrolide_lincosamide",
+          90
+        ],
+        [
+          "macrolide_lincosamide",
+          180
+        ],
+        [
+          "nitrofuran",
+          14
+        ],
+        [
+          "nitrofuran",
+          30
+        ],
+        [
+          "nitrofuran",
+          90
+        ],
+        [
+          "nitrofuran",
+          180
+        ],
+        [
+          "nitroimidazole",
+          14
+        ],
+        [
+          "nitroimidazole",
+          30
+        ],
+        [
+          "nitroimidazole",
+          90
+        ],
+        [
+          "nitroimidazole",
+          180
+        ],
+        [
+          "tetracycline",
+          30
+        ],
+        [
+          "tetracycline",
+          90
+        ],
+        [
+          "tetracycline",
+          180
+        ]
+      ]
+    },
+    "comorbidity": {
+      "name_template": "comorbidity {window} - {code}",
+      "conditions": [
+        {
+          "code": "DM",
+          "label": "Diabetes mellitus"
+        },
+        {
+          "code": "Depression",
+          "label": "Depression"
+        },
+        {
+          "code": "HTN",
+          "label": "Hypertension"
+        }
+      ],
+      "windows": [
+        7,
+        14,
+        30,
+        90,
+        180
+      ],
+      "combos": [
+        [
+          "DM",
+          7
+        ],
+        [
+          "DM",
+          14
+        ],
+        [
+          "DM",
+          30
+        ],
+        [
+          "DM",
+          90
+        ],
+        [
+          "DM",
+          180
+        ],
+        [
+          "Depression",
+          7
+        ],
+        [
+          "Depression",
+          14
+        ],
+        [
+          "Depression",
+          30
+        ],
+        [
+          "Depression",
+          90
+        ],
+        [
+          "Depression",
+          180
+        ],
+        [
+          "HTN",
+          7
+        ],
+        [
+          "HTN",
+          14
+        ],
+        [
+          "HTN",
+          30
+        ],
+        [
+          "HTN",
+          90
+        ]
+      ]
+    }
+  }
+}

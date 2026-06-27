@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+/* ── Liquid-clinical design tokens ─────────────────────────────────────────── */
+@theme {
+  --font-sans: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    system-ui, "Helvetica Neue", sans-serif;
+
+  /* Brand: deep clinical teal */
+  --color-brand-50: #ecfeff;
+  --color-brand-100: #cffafe;
+  --color-brand-200: #a5f3fc;
+  --color-brand-300: #67e8f9;
+  --color-brand-400: #22d3ee;
+  --color-brand-500: #06b6d4;
+  --color-brand-600: #0891b2;
+  --color-brand-700: #0e7490;
+  --color-brand-800: #155e75;
+  --color-brand-900: #164e63;
+  --color-brand-950: #083344;
+
+  /* Ink / slate surfaces */
+  --color-ink-500: #64748b;
+  --color-ink-700: #334155;
+  --color-ink-900: #0f172a;
+
+  /* Drug palette — colour-blind-safe, distinct hues */
+  --color-nit: #0d9488; /* teal-green */
+  --color-sxt: #4f46e5; /* indigo */
+  --color-fq: #d97706; /* amber */
+
+  --color-good: #15803d;
+  --color-warn: #b45309;
+  --color-danger: #be123c;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink-900);
+  background: #f6fafb;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Liquid background: animated aqua→teal mesh + floating blobs ───────────── */
+.liquid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 80% at 10% -10%, #e0f7fb 0%, transparent 55%),
+    radial-gradient(100% 70% at 100% 0%, #d7f3ee 0%, transparent 50%),
+    linear-gradient(180deg, #f6fafb 0%, #eef6f8 100%);
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+  will-change: transform;
+}
+.blob-1 {
+  width: 42vw;
+  height: 42vw;
+  left: -8vw;
+  top: -6vw;
+  background: radial-gradient(circle at 30% 30%, #67e8f9, #22d3ee 60%, transparent 75%);
+  animation: drift1 22s ease-in-out infinite;
+}
+.blob-2 {
+  width: 38vw;
+  height: 38vw;
+  right: -10vw;
+  top: 8vw;
+  background: radial-gradient(circle at 60% 40%, #5eead4, #14b8a6 60%, transparent 75%);
+  animation: drift2 27s ease-in-out infinite;
+}
+.blob-3 {
+  width: 30vw;
+  height: 30vw;
+  left: 30vw;
+  bottom: -12vw;
+  background: radial-gradient(circle at 50% 50%, #a5f3fc, #38bdf8 60%, transparent 75%);
+  animation: drift3 31s ease-in-out infinite;
+}
+@keyframes drift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6vw, 4vw) scale(1.08); }
+}
+@keyframes drift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-5vw, 6vw) scale(1.1); }
+}
+@keyframes drift3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(4vw, -5vw) scale(1.06); }
+}
+
+/* ── Glass surfaces ───────────────────────────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 40px -16px rgba(8, 51, 68, 0.22);
+}
+.glass-strong {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* Focus ring + scrollbar polish */
+*:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.shimmer {
+  background: linear-gradient(90deg, #eef3f5 25%, #f7fbfc 50%, #eef3f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.3s infinite;
+}
+@keyframes shimmer {
+  to { background-position: -200% 0; }
+}
+
+/* Respect reduced motion: kill all decorative & framer transforms */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .blob { animation: none; }
+}
+
+/* Print: hide chrome, show results cleanly */
+@media print {
+  .no-print { display: none !important; }
+  .liquid-bg { display: none; }
+  body { background: white; }
+  .glass, .glass-strong { background: white; backdrop-filter: none; box-shadow: none; border: 1px solid #e2e8f0; }
+}

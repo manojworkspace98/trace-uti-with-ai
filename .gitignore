@@ -1,0 +1,21 @@
+# Dependencies & build output
+node_modules/
+app/node_modules/
+app/dist/
+app/.vite/
+*.tsbuildinfo
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Derived-from-restricted-data artifacts — NEVER commit (PhysioNet licence).
+# These are regenerated locally by build/*.py. Only app/public/{model,schema,metrics}.json ship.
+build/artifacts/
+
+# OS / editor
+.DS_Store
+*.log
+.playwright-mcp/
+app/tsconfig.tsbuildinfo
