@@ -79,7 +79,17 @@ export default function App() {
 
       <header className="no-print sticky top-0 z-20 border-b border-white/40 bg-white/55 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <Logo />
+          <button
+            type="button"
+            onClick={() => {
+              setTab("predict");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            aria-label="UTI Antibiotic Advisor — home"
+            className="rounded-xl transition hover:opacity-80"
+          >
+            <Logo />
+          </button>
           <nav className="flex items-center gap-1 rounded-full bg-white/60 p-1 shadow-sm ring-1 ring-black/5">
             {TABS.map((t) => (
               <button
