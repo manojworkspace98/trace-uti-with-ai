@@ -24,7 +24,7 @@ export const TEAM: Member[] = [
     linkedin: "https://www.linkedin.com/in/liyanaaoy/",
   },
   {
-    name: "Kimberly Su",
+    name: "Kimberly Su (PhD candidate)",
     role: "Co-founder · COO",
     blurb: "Leads operations and legal/regulatory strategy.",
     photo: "kimberly",
@@ -33,7 +33,7 @@ export const TEAM: Member[] = [
     linkedin: "https://www.linkedin.com/in/kimberlysuyy/",
   },
   {
-    name: "Manoj Itharajula",
+    name: "Manoj Itharajula (PhD candidate)",
     role: "Co-founder · CTO · AI Scientist",
     blurb: "Builds the machine-learning pipeline behind Trace.",
     photo: "manoj",
