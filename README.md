@@ -1,8 +1,8 @@
-# Trace — UTI antibiotic guidance
+# UTI Antibiotic Advisor
 
 A static, browser-only clinical-decision-support **research prototype** that predicts
 a urinary-tract-infection patient's likelihood of resistance to each first-line oral
-antibiotic and suggests the **narrowest-spectrum effective agent** — to support
+antibiotic and **recommends the narrowest-spectrum effective agent** — to support
 antimicrobial stewardship.
 
 > ⚠️ **Not medical advice.** Research/educational use only. See [NOTICE.md](NOTICE.md).

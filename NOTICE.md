@@ -15,7 +15,7 @@ distributed via PhysioNet under the **PhysioNet Credentialed Health Data License
   PhysioNet under their own credentialed access.
 
 ## Intended use
-Trace is a **research and educational prototype** for antimicrobial-stewardship
+UTI Antibiotic Advisor is a **research and educational prototype** for antimicrobial-stewardship
 exploration. It is **not a medical device and not medical advice**. It must not be
 used for clinical decision-making without independent validation, urine culture &
 sensitivity testing, local antibiogram data, and qualified clinical judgement.

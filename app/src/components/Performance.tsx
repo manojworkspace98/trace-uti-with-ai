@@ -150,30 +150,25 @@ export function Performance({ metrics: m }: { metrics: Metrics }) {
       <div className="grid gap-6 lg:grid-cols-2">
         <Reveal>
           <ChartCard
-            title="Before vs after retraining"
-            subtitle="The previous model overfit badly (87% train → 44% validation, barely above the 42.6% majority baseline). The rebuild generalises honestly."
+            title="Headline results (locked test)"
+            subtitle={`Evaluated once on ${m.cohort.test.toLocaleString()} held-out patients. For reference: a random model scores 0.50 AUROC, and always predicting the most common drug gives ${(m.baseline_3class * 100).toFixed(0)}% accuracy.`}
           >
             <ResponsiveContainer width="100%" height={220}>
               <BarChart
                 data={[
-                  { k: "Old · train", v: m.old_model.train_acc, fill: "#cbd5e1" },
-                  { k: "Old · valid", v: m.old_model.val_acc, fill: "#94a3b8" },
-                  { k: "Baseline", v: m.baseline_3class, fill: "#fbbf24" },
-                  { k: "New · 3-class acc", v: m.three_class.test_acc, fill: "#0e7490" },
-                  { k: "New · mean AUROC", v: meanAuc, fill: "#0d9488" },
+                  { k: "Mean per-drug AUROC", v: meanAuc },
+                  { k: "3-class accuracy", v: m.three_class.test_acc },
+                  { k: "3-class macro-F1", v: m.three_class.macro_f1 },
                 ]}
-                margin={{ top: 8, right: 8, bottom: 24, left: -10 }}
+                margin={{ top: 8, right: 8, bottom: 28, left: -10 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#eef2f5" />
-                <XAxis dataKey="k" tick={{ fontSize: 10 }} angle={-12} textAnchor="end" height={48} />
+                <XAxis dataKey="k" tick={{ fontSize: 10 }} angle={-10} textAnchor="end" height={52} />
                 <YAxis domain={[0, 1]} tick={{ fontSize: 10 }} />
                 <Tooltip formatter={(v: number) => v.toFixed(3)} />
                 <Bar dataKey="v" radius={[5, 5, 0, 0]}>
-                  {[0, 1, 2, 3, 4].map((i) => (
-                    <Cell
-                      key={i}
-                      fill={["#cbd5e1", "#94a3b8", "#fbbf24", "#0e7490", "#0d9488"][i]}
-                    />
+                  {["#0d9488", "#0e7490", "#0891b2"].map((c, i) => (
+                    <Cell key={i} fill={c} />
                   ))}
                 </Bar>
               </BarChart>

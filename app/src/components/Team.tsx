@@ -118,8 +118,8 @@ export function Team() {
         </a>
         <h2 className="mt-3 text-2xl font-bold tracking-tight text-ink-900">Team ARM</h2>
         <p className="mx-auto mt-1.5 max-w-xl text-sm text-ink-600">
-          Trace grew out of a human-centred effort to help recurrent-UTI patients while
-          curbing antibiotic resistance.{" "}
+          UTI Antibiotic Advisor grew out of a human-centred effort to help recurrent-UTI
+          patients while curbing antibiotic resistance.{" "}
           <a
             href={LINKEDIN_ARTICLE}
             target="_blank"

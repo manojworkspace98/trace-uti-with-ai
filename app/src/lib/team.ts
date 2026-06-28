@@ -35,7 +35,7 @@ export const TEAM: Member[] = [
   {
     name: "Manoj Itharajula (PhD candidate)",
     role: "Co-founder · CTO · AI Scientist",
-    blurb: "Builds the machine-learning pipeline behind Trace.",
+    blurb: "Builds the machine-learning pipeline behind UTI Antibiotic Advisor.",
     photo: "manoj",
     hasPhoto: true,
     lead: true,

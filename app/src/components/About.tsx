@@ -74,8 +74,8 @@ export function About({ metrics: m }: { metrics: Metrics }) {
       title: "Stewardship goal",
       body: (
         <>
-          By favouring the narrowest effective agent, Trace aims to reduce unnecessary
-          broad-spectrum use — the core principle of antimicrobial stewardship.
+          By recommending the narrowest effective agent, the Advisor aims to reduce
+          unnecessary broad-spectrum use — the core principle of antimicrobial stewardship.
         </>
       ),
     },
@@ -96,10 +96,10 @@ export function About({ metrics: m }: { metrics: Metrics }) {
       <Reveal immediate>
         <div className="text-center">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-100 px-3 py-1 text-xs font-semibold text-brand-800">
-            💧 Antimicrobial stewardship · research prototype
+            💊 Antimicrobial stewardship · research prototype
           </span>
           <h1 className="mt-3 text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">
-            About Trace
+            About UTI Antibiotic Advisor
           </h1>
           <p className="mx-auto mt-2 max-w-xl text-sm text-ink-600 sm:text-base">
             A decision-support tool that predicts UTI antibiotic susceptibility to help

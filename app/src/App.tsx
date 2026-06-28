@@ -7,8 +7,8 @@ import { About } from "./components/About";
 
 type Tab = "predict" | "performance" | "about";
 const TABS: { id: Tab; label: string }[] = [
-  { id: "predict", label: "Predict" },
-  { id: "performance", label: "Model performance" },
+  { id: "predict", label: "Recommend" },
+  { id: "performance", label: "Performance" },
   { id: "about", label: "About" },
 ];
 
@@ -27,28 +27,26 @@ function Logo() {
     <div className="flex items-center gap-2.5">
       <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden>
         <defs>
-          <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id="pillg" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#22d3ee" />
             <stop offset="1" stopColor="#0e7490" />
           </linearGradient>
+          <clipPath id="capclip">
+            <rect x="6" y="16" width="28" height="8" rx="4" />
+          </clipPath>
         </defs>
-        <path
-          d="M20 3C12 12 7 18 7 25a13 13 0 0026 0c0-7-5-13-13-22z"
-          fill="url(#lg)"
-        />
-        <path
-          d="M14 25c0 3.3 2.7 6 6 6"
-          fill="none"
-          stroke="#fff"
-          strokeWidth="2.4"
-          strokeLinecap="round"
-          opacity="0.9"
-        />
+        <g transform="rotate(-40 20 20)">
+          <rect x="6" y="16" width="28" height="8" rx="4" fill="url(#pillg)" />
+          <rect x="6" y="16" width="14" height="8" fill="#0e7490" clipPath="url(#capclip)" />
+          <line x1="20" y1="16" x2="20" y2="24" stroke="#fff" strokeWidth="1" opacity="0.6" />
+        </g>
       </svg>
       <div className="leading-none">
-        <div className="text-[15px] font-bold tracking-tight text-ink-900">Trace</div>
-        <div className="text-[10px] font-medium uppercase tracking-wider text-brand-700">
-          UTI antibiotic guidance
+        <div className="text-[13px] font-bold tracking-tight text-ink-900 sm:text-[15px]">
+          UTI Antibiotic Advisor
+        </div>
+        <div className="hidden text-[10px] font-medium uppercase tracking-wider text-brand-700 sm:block">
+          Resistance-aware recommendations
         </div>
       </div>
     </div>

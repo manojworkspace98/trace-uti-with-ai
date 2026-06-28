@@ -250,11 +250,11 @@ export function Predict({ schema, model }: { schema: Schema; model: Model }) {
       <Reveal immediate>
         <div className="pb-1 text-center">
           <h1 className="text-3xl font-bold tracking-tight text-brand-800 sm:text-4xl">
-            Personalised UTI antibiotic guidance
+            Resistance-aware antibiotic recommendations
           </h1>
           <p className="mx-auto mt-2 max-w-2xl text-sm text-ink-600 sm:text-base">
             Tell us what’s known about the patient’s past UTIs. The model estimates the
-            chance of resistance to each first-line antibiotic and suggests the narrowest
+            chance of resistance to each first-line antibiotic and recommends the narrowest
             effective option — to support antimicrobial stewardship.
           </p>
         </div>
